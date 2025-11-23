@@ -1,0 +1,272 @@
+# ==========================================
+# COMPREHENSIVE .gitignore TEMPLATE
+# ==========================================
+# This template covers common files and directories
+# that should be ignored in most projects
+#
+# ⚠️  IMPORTANT: This is a TEMPLATE - customize it for your project!
+# - Review each section and remove what you don't need
+# - Pay special attention to lock files (usually should be committed!)
+# - Check database files if you have seed data
+# - Adjust based on your specific tech stack
+
+# ==========================================
+# Dependencies
+# ==========================================
+node_modules/
+bower_components/
+jspm_packages/
+vendor/
+packages/
+.pnp
+.pnp.js
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+pip-log.txt
+pip-delete-this-directory.txt
+.venv/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Ruby
+*.gem
+*.rbc
+/.bundle/
+/vendor/bundle
+/lib/bundler/man/
+
+# ==========================================
+# Environment Variables
+# ==========================================
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.*.local
+
+# Keep example env files
+!.env.example
+!.env.sample
+!.env.template
+
+# ==========================================
+# Build Outputs
+# ==========================================
+dist/
+build/
+out/
+target/
+*.exe
+*.dll
+*.so
+*.dylib
+*.app
+*.war
+*.ear
+*.class
+*.jar
+
+# Frontend builds
+.next/
+.nuxt/
+.output/
+.cache/
+.parcel-cache/
+.vuepress/dist/
+
+# ==========================================
+# Logs
+# ==========================================
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+pnpm-debug.log*
+
+# ==========================================
+# Testing
+# ==========================================
+coverage/
+*.lcov
+.nyc_output/
+.cache/
+test-results/
+*.test.js.snap
+.pytest_cache/
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+nosetests.xml
+coverage.xml
+*.cover
+
+# ==========================================
+# IDE and Editor Files
+# ==========================================
+# VSCode
+.vscode/
+*.code-workspace
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+.netrwhist
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+
+# ==========================================
+# Operating System Files
+# ==========================================
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# Linux
+.directory
+.Trash-*
+.nfs*
+
+# ==========================================
+# Package Manager Files
+# ==========================================
+# WARNING: Lock files ensure consistent dependencies!
+# Most projects SHOULD commit lock files.
+# Only ignore if you have a specific reason (e.g., library development)
+
+# Uncomment these lines if you want to ignore lock files:
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
+# Gemfile.lock
+# Pipfile.lock
+# poetry.lock
+# composer.lock
+
+# ==========================================
+# Database
+# ==========================================
+# WARNING: If you have seed/example databases that should be
+# committed to the repo, comment out the relevant lines below
+*.db
+*.sqlite
+*.sqlite3
+*.db-shm
+*.db-wal
+
+# ==========================================
+# Secrets and Certificates
+# ==========================================
+*.pem
+*.key
+*.crt
+*.cer
+*.p12
+*.pfx
+secrets/
+credentials.json
+service-account.json
+
+# ==========================================
+# Temporary Files
+# ==========================================
+tmp/
+temp/
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+*~
+
+# ==========================================
+# Archives
+# ==========================================
+*.zip
+*.tar.gz
+*.tar
+*.rar
+*.7z
+
+# ==========================================
+# Cloud/Deployment
+# ==========================================
+.vercel
+.netlify
+.serverless/
+.fusebox/
+
+# Terraform
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform.lock.hcl
+
+# ==========================================
+# Docker
+# ==========================================
+# Note: Some teams commit docker-compose.override.yml for shared config
+# Uncomment the line below if you want to ignore it:
+# docker-compose.override.yml
+
+# ==========================================
+# Misc
+# ==========================================
+.sass-cache/
+*.css.map
+*.js.map
+.grunt
+.eslintcache
+.stylelintcache
+.npm
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
