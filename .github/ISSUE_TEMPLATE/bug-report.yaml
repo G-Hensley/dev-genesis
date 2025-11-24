@@ -1,5 +1,5 @@
 name: Bug Report
-description: File a bug report.
+description: Report a bug or unexpected behavior to help us improve
 title: "[Bug]: "
 labels: ["bug", "triage"]
 projects: []
@@ -8,56 +8,95 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thanks for taking the time to fill out this bug report!
-  - type: input
-    id: contact
-    attributes:
-      label: Contact Details
-      description: How can we get in touch with you if we need more info?
-      placeholder: ex. email@example.com
-    validations:
-      required: false
+        Thanks for taking the time to fill out this bug report! Please provide as much detail as possible to help us resolve the issue quickly.
+
   - type: textarea
-    id: what-happened
+    id: description
     attributes:
-      label: What happened?
-      description: Also tell us, what did you expect to happen?
-      placeholder: Tell us what you see!
-      value: "A bug happened!"
+      label: Bug Description
+      description: A clear and concise description of the bug
+      placeholder: Describe what the bug is...
     validations:
       required: true
-  - type: dropdown
+
+  - type: textarea
+    id: reproduction-steps
+    attributes:
+      label: Steps to Reproduce
+      description: Clear steps to reproduce the behavior
+      placeholder: |
+        1. Go to '...'
+        2. Click on '...'
+        3. Scroll down to '...'
+        4. See error
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected Behavior
+      description: What did you expect to happen?
+      placeholder: A clear description of what you expected to happen
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual-behavior
+    attributes:
+      label: Actual Behavior
+      description: What actually happened?
+      placeholder: A clear description of what actually happened instead
+    validations:
+      required: true
+
+  - type: input
     id: version
     attributes:
       label: Version
-      description: What version of our software are you running?
-      options:
-        - 1.0.2 (Default)
-        - 1.0.3 (Edge)
-      default: 0
+      description: What version are you using?
+      placeholder: "e.g., 1.0.2, latest, commit SHA"
     validations:
       required: true
-  - type: dropdown
-    id: browsers
+
+  - type: textarea
+    id: environment
     attributes:
-      label: What browsers are you seeing the problem on?
-      multiple: true
-      options:
-        - Firefox
-        - Chrome
-        - Safari
-        - Microsoft Edge
+      label: Environment
+      description: Please provide details about your environment
+      placeholder: |
+        - OS: [e.g., Windows 11, macOS 14, Ubuntu 22.04]
+        - Browser (if applicable): [e.g., Chrome 120, Firefox 121]
+        - Node version (if applicable): [e.g., 18.17.0]
+        - Other relevant details:
+      render: markdown
+    validations:
+      required: true
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots / Videos
+      description: If applicable, add screenshots or videos to help explain the problem
+      placeholder: Drag and drop images here or paste image URLs
+    validations:
+      required: false
+
   - type: textarea
     id: logs
     attributes:
-      label: Relevant log output
-      description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
+      label: Relevant Log Output
+      description: Please copy and paste any relevant log output, error messages, or stack traces. This will be automatically formatted into code.
+      placeholder: Paste logs here...
       render: shell
-  - type: checkboxes
-    id: terms
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional-context
     attributes:
-      label: Code of Conduct
-      description: By submitting this issue, you agree to follow our [Code of Conduct](https://example.com).
-      options:
-        - label: I agree to follow this project's Code of Conduct
-          required: true
+      label: Additional Context
+      description: Add any other context about the problem here (workarounds, related issues, etc.)
+      placeholder: Any additional information that might be helpful...
+    validations:
+      required: false
