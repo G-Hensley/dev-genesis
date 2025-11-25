@@ -1,1 +1,20 @@
 blank_issues_enabled: false
+
+# Contact links appear alongside issue templates when creating a new issue.
+# These help direct users to the right place for different types of inquiries.
+# Update the URLs below to match your project's resources.
+
+contact_links:
+  - name: Security Vulnerabilities
+    url: https://github.com/OWNER/REPO/security/policy
+    about: Please report security vulnerabilities through our security policy. Do not create public issues for security concerns.
+  - name: Questions & Support
+    url: https://github.com/OWNER/REPO/discussions
+    about: Ask questions and get help from the community in GitHub Discussions.
+  # Uncomment and customize the links below as needed for your project:
+  # - name: Discord Community
+  #   url: https://discord.gg/your-invite-code
+  #   about: Join our Discord server for real-time chat and support.
+  # - name: Stack Overflow
+  #   url: https://stackoverflow.com/questions/tagged/your-tag
+  #   about: Search existing questions or ask new ones on Stack Overflow.
