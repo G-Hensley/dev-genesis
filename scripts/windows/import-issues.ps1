@@ -51,7 +51,10 @@ param(
 
 # Strict mode for better error handling
 Set-StrictMode -Version Latest
-$ErrorActionPreference = "Stop"
+$ErrorActionPreference = "Continue"
+
+# Track labels we've already verified/created this session
+$Script:VerifiedLabels = @{}
 
 #region Helper Functions
 
@@ -111,11 +114,17 @@ function Get-RandomLabelColor {
 function New-LabelIfMissing {
     param([string]$LabelName)
 
+    # Skip if we already verified/created this label in this session
+    if ($Script:VerifiedLabels.ContainsKey($LabelName)) {
+        return $true
+    }
+
     # Check if label exists
     $existingLabels = gh label list --json name 2>$null | ConvertFrom-Json
     $exists = $existingLabels | Where-Object { $_.name -eq $LabelName }
 
     if ($exists) {
+        $Script:VerifiedLabels[$LabelName] = $true
         return $true
     }
 
@@ -123,18 +132,26 @@ function New-LabelIfMissing {
     Write-ColorOutput "Creating missing label: $LabelName" "Info"
 
     try {
-        gh label create $LabelName --color $color 2>$null
+        $output = gh label create $LabelName --color $color 2>&1
         if ($LASTEXITCODE -eq 0) {
             Write-ColorOutput "Created label: $LabelName" "Success"
+            $Script:VerifiedLabels[$LabelName] = $true
+            return $true
+        }
+        elseif ($output -match "already exists") {
+            # Label was created by another process
+            $Script:VerifiedLabels[$LabelName] = $true
             return $true
         }
         else {
             Write-ColorOutput "Could not create label: $LabelName" "Warning"
+            $Script:VerifiedLabels[$LabelName] = $true
             return $false
         }
     }
     catch {
         Write-ColorOutput "Could not create label: $LabelName" "Warning"
+        $Script:VerifiedLabels[$LabelName] = $true
         return $false
     }
 }

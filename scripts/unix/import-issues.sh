@@ -23,7 +23,11 @@
 # - jq installed for JSON parsing
 #===============================================================================
 
-set -e
+# Don't exit on error - we handle errors ourselves
+set +e
+
+# Track labels we've already created/verified this session
+declare -A VERIFIED_LABELS
 
 # Colors for output
 RED='\033[0;31m'
@@ -93,8 +97,16 @@ generate_label_color() {
 create_label_if_missing() {
     local label_name="$1"
 
-    # Check if label exists
-    if gh label list --json name -q ".[].name" | grep -qx "$label_name"; then
+    # Skip if we already verified/created this label in this session
+    if [ "${VERIFIED_LABELS[$label_name]}" = "true" ]; then
+        return 0
+    fi
+
+    # Check if label exists in repo
+    local existing_labels
+    existing_labels=$(gh label list --json name -q ".[].name" 2>/dev/null)
+    if echo "$existing_labels" | grep -qxF "$label_name"; then
+        VERIFIED_LABELS[$label_name]="true"
         return 0
     fi
 
@@ -102,11 +114,22 @@ create_label_if_missing() {
     color=$(generate_label_color)
 
     print_info "Creating missing label: $label_name"
-    if gh label create "$label_name" --color "$color" 2>/dev/null; then
+    local create_output
+    create_output=$(gh label create "$label_name" --color "$color" 2>&1)
+    local create_status=$?
+
+    if [ $create_status -eq 0 ]; then
         print_success "Created label: $label_name"
+        VERIFIED_LABELS[$label_name]="true"
+        return 0
+    elif echo "$create_output" | grep -qi "already exists"; then
+        # Label was created by another process or we missed it
+        VERIFIED_LABELS[$label_name]="true"
         return 0
     else
         print_warning "Could not create label: $label_name"
+        # Still mark as verified to avoid repeated attempts
+        VERIFIED_LABELS[$label_name]="true"
         return 1
     fi
 }
