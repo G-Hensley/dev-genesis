@@ -38,7 +38,7 @@ print_banner() {
     echo -e "${MAGENTA}╔═══════════════════════════════════════════════════════════════╗${NC}"
     echo -e "${MAGENTA}║${NC}                                                               ${MAGENTA}║${NC}"
     echo -e "${MAGENTA}║${NC}   ${BOLD}🚀 dev-genesis Setup${NC}                                        ${MAGENTA}║${NC}"
-    echo -e "${MAGENTA}║${NC}   ${CYAN}From idea to code in under 30 minutes${NC}                      ${MAGENTA}║${NC}"
+    echo -e "${MAGENTA}║${NC}   ${CYAN}From idea to code in under 30 minutes${NC}                       ${MAGENTA}║${NC}"
     echo -e "${MAGENTA}║${NC}                                                               ${MAGENTA}║${NC}"
     echo -e "${MAGENTA}╚═══════════════════════════════════════════════════════════════╝${NC}"
     echo ""
