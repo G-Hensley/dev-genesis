@@ -1,0 +1,97 @@
+# Dependencies
+node_modules/
+vendor/
+.pnp.*
+
+# Build outputs
+dist/
+build/
+out/
+.next/
+.nuxt/
+.output/
+.vercel/
+.netlify/
+
+# Package manager files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+bun.lockb
+composer.lock
+Gemfile.lock
+poetry.lock
+Cargo.lock
+
+# Cache directories
+.cache/
+.parcel-cache/
+.turbo/
+.eslintcache
+.prettiercache
+*.tsbuildinfo
+
+# IDE and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# Generated files
+*.min.js
+*.min.css
+*.bundle.js
+*.bundle.css
+*.generated.*
+
+# Documentation builds
+docs/_build/
+site/
+
+# Environment files
+.env*
+!.env.example
+
+# Logs
+logs/
+*.log
+
+# OS files
+Thumbs.db
+ehthumbs.db
+
+# Temporary files
+tmp/
+temp/
+.tmp/
+
+# Binary and media files
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.ico
+*.svg
+*.woff
+*.woff2
+*.ttf
+*.eot
+*.pdf
+*.zip
+*.tar.gz
+*.mp3
+*.mp4
+*.webm
+
+# Database files
+*.sqlite
+*.db
+
+# Minified vendor libraries
+**/vendor/**
+**/third-party/**

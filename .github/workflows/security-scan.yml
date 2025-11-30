@@ -1,0 +1,208 @@
+# ============================================================================
+# Security Scan Workflow
+# ============================================================================
+#
+# Automatically scans your code for security vulnerabilities.
+#
+# WHAT RUNS AUTOMATICALLY (no setup needed):
+#   - Dependency Review: Checks new dependencies in PRs for vulnerabilities
+#   - Secrets Scan: Detects accidentally committed API keys, passwords, tokens
+#   - Semgrep SAST: Language-agnostic static analysis for security bugs
+#   - CodeQL: GitHub's security scanner (⚠️  adjust language below if needed)
+#
+# SETUP CHECKLIST:
+#   1. [ ] Update CodeQL language (line ~46) to match your project
+#         Supported: javascript-typescript, python, go, java, kotlin, csharp, cpp, ruby, swift
+#
+#   2. [ ] Uncomment your stack's audit job (optional but recommended):
+#         - Node.js: Uncomment npm-audit (lines ~82-100)
+#         - Python:  Uncomment pip-audit (lines ~102-120)
+#         - Go:      Uncomment govulncheck (lines ~122-139)
+#         - Rust:    Uncomment cargo-audit (lines ~141-153)
+#
+#   3. [ ] (Optional) Add SEMGREP_APP_TOKEN secret for additional security rules
+#         Get token at: https://semgrep.dev
+#
+# WHEN IT RUNS:
+#   - Every push to main
+#   - Every PR targeting main
+#   - Weekly on Sunday (scheduled)
+#   - Manual trigger via Actions tab
+#
+# RESULTS:
+#   - View in GitHub Security tab → Code scanning alerts
+#   - PR comments for dependency issues
+#
+# ============================================================================
+
+name: Security Scan
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    # Run weekly on Sunday at midnight UTC
+    - cron: '0 0 * * 0'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  security-events: write
+  actions: read
+
+jobs:
+  dependency-review:
+    name: Dependency Review
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Dependency Review
+        uses: actions/dependency-review-action@v4
+        with:
+          fail-on-severity: high
+          deny-licenses: GPL-3.0, AGPL-3.0
+          comment-summary-in-pr: always
+
+  codeql-analysis:
+    name: CodeQL Analysis
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # Customize based on your languages
+        # Supported: javascript, typescript, python, go, java, kotlin, csharp, cpp, ruby, swift
+        language: ['javascript-typescript']
+        # Remove languages you don't use
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: ${{ matrix.language }}
+          # For compiled languages, you may need to configure build commands
+          # queries: security-extended,security-and-quality
+
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v3
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:${{ matrix.language }}"
+
+  secrets-scan:
+    name: Secrets Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: TruffleHog Secrets Scan
+        uses: trufflesecurity/trufflehog@main
+        with:
+          extra_args: --only-verified
+
+  # Uncomment for Node.js projects
+  # npm-audit:
+  #   name: NPM Audit
+  #   runs-on: ubuntu-latest
+  #   if: hashFiles('package-lock.json') != '' || hashFiles('yarn.lock') != '' || hashFiles('pnpm-lock.yaml') != ''
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v4
+  #
+  #     - name: Setup Node.js
+  #       uses: actions/setup-node@v4
+  #       with:
+  #         node-version: 'lts/*'
+  #
+  #     - name: Install dependencies
+  #       run: npm ci
+  #
+  #     - name: Run audit
+  #       run: npm audit --audit-level=high
+
+  # Uncomment for Python projects
+  # pip-audit:
+  #   name: Pip Audit
+  #   runs-on: ubuntu-latest
+  #   if: hashFiles('requirements.txt') != '' || hashFiles('pyproject.toml') != '' || hashFiles('Pipfile.lock') != ''
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v4
+  #
+  #     - name: Setup Python
+  #       uses: actions/setup-python@v5
+  #       with:
+  #         python-version: '3.x'
+  #
+  #     - name: Install pip-audit
+  #       run: pip install pip-audit
+  #
+  #     - name: Run pip-audit
+  #       run: pip-audit --strict
+
+  # Uncomment for Go projects
+  # govulncheck:
+  #   name: Go Vulnerability Check
+  #   runs-on: ubuntu-latest
+  #   if: hashFiles('go.mod') != ''
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v4
+  #
+  #     - name: Setup Go
+  #       uses: actions/setup-go@v5
+  #       with:
+  #         go-version: 'stable'
+  #
+  #     - name: Run govulncheck
+  #       run: |
+  #         go install golang.org/x/vuln/cmd/govulncheck@latest
+  #         govulncheck ./...
+
+  # Uncomment for Rust projects
+  # cargo-audit:
+  #   name: Cargo Audit
+  #   runs-on: ubuntu-latest
+  #   if: hashFiles('Cargo.lock') != ''
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v4
+  #
+  #     - name: Run cargo-audit
+  #       uses: rustsec/audit-check@v1
+  #       with:
+  #         token: ${{ secrets.GITHUB_TOKEN }}
+
+  # SAST with Semgrep (language-agnostic)
+  semgrep:
+    name: Semgrep SAST
+    runs-on: ubuntu-latest
+    container:
+      image: semgrep/semgrep
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Semgrep
+        run: semgrep ci --config auto --sarif --output=semgrep.sarif
+        env:
+          # Optional: Add SEMGREP_APP_TOKEN for additional rules
+          SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
+
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: semgrep.sarif

@@ -1,0 +1,246 @@
+# Repository settings managed by Probot Settings app
+# https://github.com/probot/settings
+#
+# To use this file:
+# 1. Install the Settings app: https://github.com/apps/settings
+# 2. Customize the values below
+# 3. Changes will be applied automatically when pushed to the default branch
+
+# General repository settings
+repository:
+  # Repository name (usually don't change this)
+  # name: repo-name
+
+  # Repository description
+  # description: "A brief description of your project"
+
+  # Homepage URL
+  # homepage: https://example.com
+
+  # Repository topics (tags)
+  # topics:
+  #   - topic1
+  #   - topic2
+
+  # Private or public
+  private: false
+
+  # Features
+  has_issues: true
+  has_projects: true
+  has_wiki: false
+  has_downloads: true
+  has_discussions: true
+
+  # Merge settings
+  allow_squash_merge: true
+  allow_merge_commit: false
+  allow_rebase_merge: false
+  allow_auto_merge: true
+  delete_branch_on_merge: true
+  squash_merge_commit_title: PR_TITLE
+  squash_merge_commit_message: PR_BODY
+
+  # Security
+  enable_automated_security_fixes: true
+  enable_vulnerability_alerts: true
+
+# Labels configuration
+labels:
+  # Issue types
+  - name: bug
+    color: "d73a4a"
+    description: "Something isn't working"
+
+  - name: feature
+    color: "a2eeef"
+    description: "New feature or request"
+
+  - name: enhancement
+    color: "84b6eb"
+    description: "Improvement to existing functionality"
+
+  - name: documentation
+    color: "0075ca"
+    description: "Improvements or additions to documentation"
+
+  - name: security
+    color: "ee0701"
+    description: "Security-related issue or update"
+
+  # Status labels
+  - name: triage
+    color: "fbca04"
+    description: "Needs initial review and categorization"
+
+  - name: needs-info
+    color: "d876e3"
+    description: "More information needed from reporter"
+
+  - name: confirmed
+    color: "0e8a16"
+    description: "Issue has been confirmed/reproduced"
+
+  - name: wontfix
+    color: "ffffff"
+    description: "This will not be worked on"
+
+  - name: duplicate
+    color: "cfd3d7"
+    description: "This issue or PR already exists"
+
+  - name: invalid
+    color: "e4e669"
+    description: "This doesn't seem right"
+
+  # Priority labels
+  - name: "priority: critical"
+    color: "b60205"
+    description: "Must be fixed ASAP"
+
+  - name: "priority: high"
+    color: "d93f0b"
+    description: "High priority issue"
+
+  - name: "priority: medium"
+    color: "fbca04"
+    description: "Medium priority issue"
+
+  - name: "priority: low"
+    color: "0e8a16"
+    description: "Low priority issue"
+
+  # Project phases (for dev-genesis workflow)
+  - name: "phase-1"
+    color: "c5def5"
+    description: "Phase 1: Foundation & Setup"
+
+  - name: "phase-2"
+    color: "bfd4f2"
+    description: "Phase 2: Core Features"
+
+  - name: "phase-3"
+    color: "b4d3fb"
+    description: "Phase 3: Polish & Launch"
+
+  # Size labels
+  - name: "size: xs"
+    color: "009900"
+    description: "Extra small change (< 10 lines)"
+
+  - name: "size: s"
+    color: "77bb00"
+    description: "Small change (10-50 lines)"
+
+  - name: "size: m"
+    color: "eebb00"
+    description: "Medium change (50-200 lines)"
+
+  - name: "size: l"
+    color: "ee9900"
+    description: "Large change (200-500 lines)"
+
+  - name: "size: xl"
+    color: "ee5500"
+    description: "Extra large change (500+ lines)"
+
+  # Category labels
+  - name: "area: frontend"
+    color: "1d76db"
+    description: "Frontend/UI related"
+
+  - name: "area: backend"
+    color: "5319e7"
+    description: "Backend/API related"
+
+  - name: "area: infrastructure"
+    color: "006b75"
+    description: "Infrastructure/DevOps related"
+
+  - name: "area: testing"
+    color: "bfe5bf"
+    description: "Testing related"
+
+  - name: "area: ci-cd"
+    color: "d4c5f9"
+    description: "CI/CD pipeline related"
+
+  - name: "area: database"
+    color: "336791"
+    description: "Database/data layer related"
+
+  # Special labels
+  - name: "good first issue"
+    color: "7057ff"
+    description: "Good for newcomers"
+
+  - name: "help wanted"
+    color: "008672"
+    description: "Extra attention is needed"
+
+  - name: dependencies
+    color: "0366d6"
+    description: "Dependency updates"
+
+  - name: breaking-change
+    color: "b60205"
+    description: "Introduces breaking changes"
+
+# Branch protection rules
+branches:
+  - name: main
+    protection:
+      # Require pull request reviews before merging
+      required_pull_request_reviews:
+        required_approving_review_count: 1
+        dismiss_stale_reviews: true
+        require_code_owner_reviews: true
+        require_last_push_approval: false
+
+      # Require status checks to pass before merging
+      # ⚠️  IMPORTANT: Add your CI job names here once you have workflows set up
+      # Without status checks, PRs can be merged even if CI fails!
+      required_status_checks:
+        strict: true
+        contexts: []
+        # Uncomment and customize based on your CI workflow job names:
+        # - "build"
+        # - "test"
+        # - "lint"
+        # - "CodeQL Analysis"        # From security-scan.yml
+        # - "Semgrep SAST"           # From security-scan.yml
+
+      # Enforce all configured restrictions for administrators
+      enforce_admins: false
+
+      # Require linear history
+      required_linear_history: true
+
+      # Allow force pushes
+      allow_force_pushes: false
+
+      # Allow deletions
+      allow_deletions: false
+
+      # Require conversation resolution before merging
+      required_conversation_resolution: true
+
+      # Restrict who can push to matching branches
+      # restrictions:
+      #   users: []
+      #   teams: []
+      #   apps: []
+
+# Collaborators (uncomment and customize)
+# collaborators:
+#   - username: collaborator1
+#     permission: push
+#   - username: collaborator2
+#     permission: pull
+
+# Teams (for organizations, uncomment and customize)
+# teams:
+#   - name: core-team
+#     permission: admin
+#   - name: contributors
+#     permission: push

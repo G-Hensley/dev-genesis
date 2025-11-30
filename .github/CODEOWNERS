@@ -1,0 +1,69 @@
+# CODEOWNERS - Define code ownership for automatic review requests
+# https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Default owner for everything in the repo
+# Replace OWNER with your GitHub username or team
+* @OWNER
+
+# Examples of more granular ownership (uncomment and customize as needed):
+
+# Documentation
+# /docs/ @OWNER
+# *.md @OWNER
+
+# GitHub configuration
+# /.github/ @OWNER
+
+# CI/CD workflows
+# /.github/workflows/ @OWNER
+
+# Security-sensitive files
+# /SECURITY.md @OWNER
+# /.github/workflows/security-scan.yml @OWNER
+
+# Configuration files
+# /*.json @OWNER
+# /*.yaml @OWNER
+# /*.yml @OWNER
+
+# Source code (customize for your structure)
+# /src/ @OWNER
+# /lib/ @OWNER
+# /app/ @OWNER
+
+# Tests
+# /tests/ @OWNER
+# /test/ @OWNER
+# /__tests__/ @OWNER
+# *.test.* @OWNER
+# *.spec.* @OWNER
+
+# Infrastructure
+# /infrastructure/ @OWNER
+# /terraform/ @OWNER
+# /k8s/ @OWNER
+# Dockerfile* @OWNER
+# docker-compose* @OWNER
+
+# Database
+# /migrations/ @OWNER
+# /db/ @OWNER
+# /prisma/ @OWNER
+
+# ============================================================================
+# SETUP INSTRUCTIONS (Delete this section when customizing)
+# ============================================================================
+#
+# 1. Replace @OWNER with your GitHub username (e.g., @johndoe)
+# 2. For organizations, you can use team names (e.g., @org/team-name)
+# 3. Uncomment and customize the sections that apply to your project
+# 4. Add additional patterns as your project structure requires
+#
+# Pattern matching:
+# - * matches all files
+# - *.js matches all JavaScript files
+# - /docs/ matches the docs directory at root
+# - docs/ matches any docs directory anywhere
+# - /src/**/*.ts matches all TypeScript files in src and subdirectories
+#
+# ============================================================================

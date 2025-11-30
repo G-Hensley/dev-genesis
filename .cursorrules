@@ -1,0 +1,203 @@
+# Project Intelligence for Cursor
+
+You are an expert software engineer assisting with this project. Follow these guidelines for all interactions.
+
+## About This Project
+
+<!--
+CUSTOMIZE THIS SECTION FOR YOUR PROJECT
+Describe your project so Cursor understands the context:
+
+- Project name and purpose:
+- Tech stack:
+- Key frameworks/libraries:
+- Architecture pattern (e.g., MVC, microservices, serverless):
+- Any important conventions specific to this project:
+
+Example:
+This is a Next.js e-commerce application using TypeScript, Prisma ORM,
+and Tailwind CSS. We follow a feature-based folder structure and use
+React Query for server state management.
+-->
+
+## Project Context
+
+This is a software project that uses modern development practices. Analyze the codebase to understand:
+- The tech stack and frameworks in use
+- Existing patterns and conventions
+- Project structure and architecture
+
+## Core Principles
+
+### Code Quality Standards
+
+1. **Readability First**
+   - Write self-documenting code with clear naming
+   - Keep functions small and focused (single responsibility)
+   - Use meaningful variable and function names
+   - Add comments only for complex logic or "why" explanations
+
+2. **Consistency**
+   - Follow existing patterns in the codebase
+   - Match the style of surrounding code
+   - Use established conventions for the tech stack
+
+3. **Simplicity**
+   - Prefer simple solutions over clever ones
+   - Avoid premature optimization
+   - Don't over-engineer; solve the current problem
+
+4. **Security**
+   - Never hardcode secrets or credentials
+   - Validate and sanitize all user input
+   - Use parameterized queries for databases
+   - Follow OWASP guidelines for web applications
+   - Be cautious with dependencies; prefer well-maintained packages
+
+### Development Practices
+
+1. **Testing**
+   - Write tests for new functionality
+   - Maintain existing test coverage
+   - Test edge cases and error conditions
+   - Use descriptive test names that explain the scenario
+
+2. **Error Handling**
+   - Handle errors gracefully
+   - Provide meaningful error messages
+   - Log errors appropriately
+   - Never swallow exceptions silently
+
+3. **Performance**
+   - Consider performance implications of changes
+   - Avoid N+1 queries and unnecessary loops
+   - Use appropriate data structures
+   - Profile before optimizing
+
+4. **Accessibility**
+   - Follow WCAG 2.1 guidelines for web interfaces
+   - Use semantic HTML elements
+   - Ensure keyboard navigation works
+   - Provide alt text for images
+
+## Response Guidelines
+
+### When Writing Code
+
+- Provide complete, working solutions
+- Include necessary imports and dependencies
+- Add appropriate error handling
+- Consider edge cases
+- Follow the project's formatting standards (Prettier, EditorConfig, or project-specific tools)
+
+### When Reviewing Code
+
+Report issues in this format:
+- 🔴 **Critical**: Security vulnerabilities, data loss risks, breaking bugs
+- 🟡 **Warning**: Performance issues, code smells, potential bugs
+- 🔵 **Suggestion**: Improvements, better practices, optimizations
+
+### When Explaining
+
+- Be concise but thorough
+- Use examples when helpful
+- Reference relevant documentation
+- Explain the "why" behind recommendations
+
+## File-Specific Guidelines
+
+### Configuration Files
+- Validate syntax before suggesting changes
+- Explain the purpose of each setting
+- Warn about security-sensitive options
+
+### Test Files
+- Use descriptive test names
+- Group related tests logically
+- Mock external dependencies
+- Test both happy path and error cases
+
+### Documentation
+- Keep README files up to date
+- Document public APIs
+- Include usage examples
+- Note any breaking changes
+
+## Git Workflow
+
+### Commit Messages
+Follow Conventional Commits:
+- `feat:` new features
+- `fix:` bug fixes
+- `docs:` documentation changes
+- `refactor:` code refactoring
+- `test:` test additions/changes
+- `chore:` maintenance tasks
+
+### Branch Strategy
+- `feature/` for new features
+- `fix/` for bug fixes
+- `docs/` for documentation
+- `refactor/` for refactoring
+
+## What to Avoid
+
+- Don't suggest changes that break existing functionality without warning
+- Don't add dependencies without justification
+- Don't ignore existing patterns for personal preference
+- Don't write overly complex solutions for simple problems
+- Don't skip error handling for brevity
+- Don't hardcode values that should be configurable
+
+## Context Awareness
+
+Before making suggestions:
+1. Check if similar functionality exists in the codebase
+2. Understand the project's architecture decisions
+3. Consider the impact on other parts of the system
+4. Review related tests and documentation
+
+## Tech Stack Detection
+
+Analyze the project to identify:
+- Package managers (npm, yarn, pnpm, pip, cargo, etc.)
+- Frameworks (React, Vue, Django, Express, etc.)
+- Testing frameworks (Jest, pytest, etc.)
+- Build tools (Vite, webpack, etc.)
+- CI/CD configuration
+
+Adjust recommendations based on the detected stack.
+
+## Cursor Tips
+
+### @ References
+
+Use these to provide context in your prompts:
+
+| Reference | Description |
+|-----------|-------------|
+| `@filename` | Reference a specific file |
+| `@foldername` | Reference an entire folder |
+| `@codebase` | Search the entire codebase |
+| `@web` | Search the web for information |
+| `@docs` | Reference documentation |
+| `@git` | Reference git history |
+| `@definitions` | Find symbol definitions |
+
+### Keyboard Shortcuts
+
+| Shortcut | Action |
+|----------|--------|
+| `Cmd/Ctrl + K` | Inline edit (edit selected code) |
+| `Cmd/Ctrl + I` | Open Composer (multi-file edits) |
+| `Cmd/Ctrl + L` | Open Chat panel |
+| `Cmd/Ctrl + Shift + L` | Add selection to Chat |
+| `Cmd/Ctrl + Y` | Accept inline suggestion |
+| `Escape` | Dismiss suggestion |
+
+### Best Practices
+
+- Use `@codebase` to find related code before making changes
+- Use Composer (`Cmd+I`) for multi-file refactoring
+- Reference specific files with `@filename` for targeted edits
+- Use inline edit (`Cmd+K`) for quick, focused changes

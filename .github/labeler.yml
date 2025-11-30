@@ -1,0 +1,178 @@
+# Configuration for actions/labeler
+# https://github.com/actions/labeler
+#
+# This file maps file patterns to labels that will be automatically
+# applied to pull requests when matching files are changed.
+
+# Documentation changes
+documentation:
+  - changed-files:
+      - any-glob-to-any-file:
+          - '*.md'
+          - 'docs/**'
+          - 'README*'
+          - 'LICENSE*'
+          - 'CONTRIBUTING*'
+          - 'CHANGELOG*'
+
+# CI/CD changes
+'area: ci-cd':
+  - changed-files:
+      - any-glob-to-any-file:
+          - '.github/workflows/**'
+          - '.github/actions/**'
+          - '.travis.yml'
+          - '.circleci/**'
+          - 'Jenkinsfile'
+          - 'azure-pipelines.yml'
+          - '.gitlab-ci.yml'
+
+# Infrastructure changes
+'area: infrastructure':
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'Dockerfile*'
+          - 'docker-compose*'
+          - '.docker/**'
+          - 'kubernetes/**'
+          - 'k8s/**'
+          - 'terraform/**'
+          - 'infrastructure/**'
+          - 'deploy/**'
+          - 'helm/**'
+          - 'ansible/**'
+
+# Testing changes
+'area: testing':
+  - changed-files:
+      - any-glob-to-any-file:
+          - '**/*.test.*'
+          - '**/*.spec.*'
+          - '**/test/**'
+          - '**/tests/**'
+          - '**/__tests__/**'
+          - '**/fixtures/**'
+          - '**/mocks/**'
+          - 'jest.config.*'
+          - 'vitest.config.*'
+          - 'pytest.ini'
+          - 'setup.cfg'
+          - '.coveragerc'
+
+# Security-related changes
+# Tightened patterns to avoid false positives (e.g., "author" matching "*auth*")
+security:
+  - changed-files:
+      - any-glob-to-any-file:
+          # Security documentation & config
+          - 'SECURITY.md'
+          - '**/security/**'
+          - '.github/workflows/security*'
+          # Authentication (folder-based to avoid matching "author", etc.)
+          - '**/auth/**'
+          - '**/authentication/**'
+          - '**/authorization/**'
+          # Specific security-related files
+          - '**/*password*'
+          - '**/*credential*'
+          - '**/*secret*'
+          - '**/permission*/**'
+          - '**/permissions/**'
+          - '**/rbac/**'
+          - '**/acl/**'
+          # Auth protocols & tokens
+          - '**/*oauth*'
+          - '**/*jwt*'
+          - '**/*session*'
+          # Encryption
+          - '**/*encrypt*'
+          - '**/*crypto*'
+
+# Dependency updates
+dependencies:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'package.json'
+          - 'package-lock.json'
+          - 'yarn.lock'
+          - 'pnpm-lock.yaml'
+          - 'requirements*.txt'
+          - 'Pipfile*'
+          - 'pyproject.toml'
+          - 'poetry.lock'
+          - 'Gemfile*'
+          - 'go.mod'
+          - 'go.sum'
+          - 'Cargo.toml'
+          - 'Cargo.lock'
+          - 'composer.json'
+          - 'composer.lock'
+
+# Configuration changes
+# Uncomment and customize based on your project
+# 'area: config':
+#   - changed-files:
+#       - any-glob-to-any-file:
+#           - '*.config.*'
+#           - '.*rc'
+#           - '.*rc.json'
+#           - '.*rc.js'
+#           - '*.yml'
+#           - '*.yaml'
+#           - '*.toml'
+#           - '*.ini'
+
+# Frontend changes (uncomment and customize)
+# 'area: frontend':
+#   - changed-files:
+#       - any-glob-to-any-file:
+#           - 'src/components/**'
+#           - 'src/pages/**'
+#           - 'src/views/**'
+#           - 'src/styles/**'
+#           - '**/*.css'
+#           - '**/*.scss'
+#           - '**/*.vue'
+#           - '**/*.jsx'
+#           - '**/*.tsx'
+#           - 'public/**'
+#           - 'static/**'
+
+# Backend changes (uncomment and customize)
+# 'area: backend':
+#   - changed-files:
+#       - any-glob-to-any-file:
+#           - 'src/api/**'
+#           - 'src/services/**'
+#           - 'src/controllers/**'
+#           - 'src/models/**'
+#           - 'src/routes/**'
+#           - 'app/**'
+#           - 'server/**'
+
+# Database changes (uncomment and customize)
+# 'area: database':
+#   - changed-files:
+#       - any-glob-to-any-file:
+#           - '**/migrations/**'
+#           - '**/seeds/**'
+#           - '**/schema*'
+#           - 'prisma/**'
+#           - 'drizzle/**'
+#           - '**/*.sql'
+
+# ============================================================================
+# SETUP INSTRUCTIONS
+# ============================================================================
+#
+# 1. Review and uncomment sections relevant to your project structure
+# 2. Update file patterns to match your actual directory structure
+# 3. Add additional labels and patterns as needed
+# 4. Ensure labels exist in your repository (see .github/settings.yml)
+#
+# Pattern syntax:
+# - Use ** for recursive matching
+# - Use * for single-level wildcards
+# - Patterns are relative to repository root
+#
+# ============================================================================
