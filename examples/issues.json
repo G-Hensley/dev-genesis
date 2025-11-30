@@ -1,0 +1,83 @@
+{
+  "project": {
+    "name": "Sample Project",
+    "description": "A sample issues file demonstrating the expected format for import-issues script",
+    "generated": "2024-01-15"
+  },
+  "milestones": [
+    {
+      "name": "Phase 1: Foundation",
+      "description": "Project setup and core architecture"
+    },
+    {
+      "name": "Phase 2: Core Features",
+      "description": "MVP feature implementation"
+    },
+    {
+      "name": "Phase 3: Polish & Launch",
+      "description": "Refinement, testing, and deployment"
+    }
+  ],
+  "issues": [
+    {
+      "title": "Initialize project repository and structure",
+      "body": "## Description\n\nSet up the initial project structure with appropriate tooling and configuration.\n\n## Acceptance Criteria\n\n- [ ] Repository initialized with .gitignore\n- [ ] Package manager configured\n- [ ] Linting and formatting configured\n- [ ] Basic folder structure created\n- [ ] README with setup instructions\n\n## Technical Notes\n\n- Follow the project's chosen framework conventions\n- Include common dev dependencies",
+      "labels": ["phase-1", "setup", "priority: critical"],
+      "milestone": "Phase 1: Foundation"
+    },
+    {
+      "title": "Configure CI/CD pipeline",
+      "body": "## Description\n\nSet up continuous integration and deployment workflows.\n\n## Acceptance Criteria\n\n- [ ] Build workflow runs on push/PR\n- [ ] Tests run automatically\n- [ ] Linting checks pass\n- [ ] Deploy to staging on main branch\n\n## Technical Notes\n\n- Use GitHub Actions\n- Cache dependencies for faster builds\n\n## Dependencies\n\n- Depends on: Project setup (#1)",
+      "labels": ["phase-1", "area: ci-cd", "priority: high"],
+      "milestone": "Phase 1: Foundation"
+    },
+    {
+      "title": "Design database schema",
+      "body": "## Description\n\nDesign and document the initial database schema for core entities.\n\n## Acceptance Criteria\n\n- [ ] Entity relationship diagram created\n- [ ] Schema migrations written\n- [ ] Seed data for development\n- [ ] Documentation in ADR format\n\n## Technical Notes\n\n- Consider future scalability\n- Add appropriate indexes",
+      "labels": ["phase-1", "area: database", "priority: high"],
+      "milestone": "Phase 1: Foundation"
+    },
+    {
+      "title": "Implement user authentication",
+      "body": "## Description\n\nCreate user authentication system with login, registration, and session management.\n\n## Acceptance Criteria\n\n- [ ] User registration with email/password\n- [ ] User login with session management\n- [ ] Password reset functionality\n- [ ] Input validation and error handling\n- [ ] Security best practices followed\n\n## Technical Notes\n\n- Use bcrypt for password hashing\n- Implement rate limiting on auth endpoints\n- Follow OWASP authentication guidelines\n\n## Dependencies\n\n- Depends on: Database schema (#3)",
+      "labels": ["phase-2", "feature", "area: backend", "security", "priority: critical"],
+      "milestone": "Phase 2: Core Features"
+    },
+    {
+      "title": "Create dashboard UI",
+      "body": "## Description\n\nBuild the main dashboard interface for authenticated users.\n\n## Acceptance Criteria\n\n- [ ] Responsive layout (mobile, tablet, desktop)\n- [ ] Navigation component\n- [ ] Data visualization widgets\n- [ ] Loading states and error handling\n- [ ] Accessibility compliance (WCAG 2.1 AA)\n\n## Technical Notes\n\n- Use component library for consistency\n- Implement skeleton loading states\n\n## Dependencies\n\n- Depends on: User authentication (#4)",
+      "labels": ["phase-2", "feature", "area: frontend", "priority: high"],
+      "milestone": "Phase 2: Core Features"
+    },
+    {
+      "title": "Add API rate limiting and caching",
+      "body": "## Description\n\nImplement rate limiting and caching for API performance and security.\n\n## Acceptance Criteria\n\n- [ ] Rate limiting on all public endpoints\n- [ ] Response caching where appropriate\n- [ ] Cache invalidation strategy\n- [ ] Monitoring and alerting\n\n## Technical Notes\n\n- Consider Redis for caching\n- Document rate limits in API docs",
+      "labels": ["phase-2", "enhancement", "area: backend", "security"],
+      "milestone": "Phase 2: Core Features"
+    },
+    {
+      "title": "Write comprehensive test suite",
+      "body": "## Description\n\nEnsure adequate test coverage for all critical paths.\n\n## Acceptance Criteria\n\n- [ ] Unit tests for business logic (>80% coverage)\n- [ ] Integration tests for API endpoints\n- [ ] E2E tests for critical user flows\n- [ ] Test documentation\n\n## Technical Notes\n\n- Use testing framework appropriate for stack\n- Include both happy path and edge cases",
+      "labels": ["phase-3", "area: testing", "priority: high"],
+      "milestone": "Phase 3: Polish & Launch"
+    },
+    {
+      "title": "Performance optimization",
+      "body": "## Description\n\nOptimize application performance based on profiling results.\n\n## Acceptance Criteria\n\n- [ ] Lighthouse score > 90\n- [ ] API response times < 200ms (p95)\n- [ ] Bundle size optimized\n- [ ] Database queries optimized\n\n## Technical Notes\n\n- Profile before optimizing\n- Document performance benchmarks",
+      "labels": ["phase-3", "enhancement", "priority: medium"],
+      "milestone": "Phase 3: Polish & Launch"
+    },
+    {
+      "title": "Security audit and hardening",
+      "body": "## Description\n\nConduct security review and implement hardening measures.\n\n## Acceptance Criteria\n\n- [ ] OWASP Top 10 review completed\n- [ ] Dependency vulnerabilities addressed\n- [ ] Security headers configured\n- [ ] Penetration testing (if applicable)\n- [ ] Security documentation updated\n\n## Technical Notes\n\n- Use automated scanning tools\n- Document security measures in SECURITY.md",
+      "labels": ["phase-3", "security", "priority: critical"],
+      "milestone": "Phase 3: Polish & Launch"
+    },
+    {
+      "title": "Prepare production deployment",
+      "body": "## Description\n\nFinalize deployment configuration and documentation.\n\n## Acceptance Criteria\n\n- [ ] Production environment configured\n- [ ] Environment variables documented\n- [ ] Deployment runbook created\n- [ ] Rollback procedure documented\n- [ ] Monitoring and alerting set up\n\n## Technical Notes\n\n- Use infrastructure as code where possible\n- Include disaster recovery plan",
+      "labels": ["phase-3", "area: infrastructure", "documentation", "priority: high"],
+      "milestone": "Phase 3: Polish & Launch"
+    }
+  ]
+}

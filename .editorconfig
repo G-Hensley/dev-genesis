@@ -1,5 +1,13 @@
 # EditorConfig helps maintain consistent coding styles across different editors
 # https://editorconfig.org
+#
+# CUSTOMIZATION:
+# - Adjust indent_size values to match your team's preferences
+# - Add/remove language sections as needed for your tech stack
+# - Most editors support EditorConfig natively or via plugins
+#
+# Note: Some settings (like shell_variant) are tool-specific extensions
+# that work with formatters like shfmt but may not be recognized by all editors.
 
 root = true
 
@@ -46,11 +54,18 @@ indent_size = 4
 indent_size = 2
 
 # Shell scripts
+# Note: shell_variant, binary_next_line, switch_case_indent are shfmt extensions
+# They work with shfmt formatter but may be ignored by other editors
 [*.{sh,bash,zsh}]
 indent_size = 2
 shell_variant = bash
 binary_next_line = true
 switch_case_indent = true
+
+# PowerShell scripts
+[*.{ps1,psm1,psd1}]
+indent_size = 4
+charset = utf-8-bom
 
 # Makefiles (must use tabs)
 [Makefile]

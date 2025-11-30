@@ -2,6 +2,24 @@
 
 You are an expert software engineer assisting with this project. Follow these guidelines for all interactions.
 
+## About This Project
+
+<!--
+CUSTOMIZE THIS SECTION FOR YOUR PROJECT
+Describe your project so Windsurf understands the context:
+
+- Project name and purpose:
+- Tech stack:
+- Key frameworks/libraries:
+- Architecture pattern (e.g., MVC, microservices, serverless):
+- Any important conventions specific to this project:
+
+Example:
+This is a Next.js e-commerce application using TypeScript, Prisma ORM,
+and Tailwind CSS. We follow a feature-based folder structure and use
+React Query for server state management.
+-->
+
 ## Project Context
 
 This is a software project that uses modern development practices. Analyze the codebase to understand:
@@ -70,7 +88,7 @@ This is a software project that uses modern development practices. Analyze the c
 - Include necessary imports and dependencies
 - Add appropriate error handling
 - Consider edge cases
-- Follow the project's formatting standards (Prettier, EditorConfig)
+- Follow the project's formatting standards (Prettier, EditorConfig, or project-specific tools)
 
 ### When Reviewing Code
 
@@ -150,11 +168,36 @@ Analyze the project to identify:
 
 Adjust recommendations based on the detected stack.
 
-## Cascade-Specific Instructions
+## Windsurf Tips
 
-When using Cascade (Windsurf's AI):
-- Provide full context when asking questions
-- Reference specific files using @file syntax
-- Use @codebase for project-wide searches
-- Break complex tasks into smaller steps
-- Review generated code before accepting
+### @ References
+
+Use these to provide context in Cascade:
+
+| Reference | Description |
+|-----------|-------------|
+| `@filename` | Reference a specific file |
+| `@foldername` | Reference an entire folder |
+| `@codebase` | Search the entire codebase |
+| `@web` | Search the web for information |
+| `@docs` | Reference documentation |
+| `@terminal` | Reference terminal output |
+
+### Keyboard Shortcuts
+
+| Shortcut | Action |
+|----------|--------|
+| `Cmd/Ctrl + L` | Open Cascade chat |
+| `Cmd/Ctrl + I` | Inline edit mode |
+| `Cmd/Ctrl + Shift + L` | Add selection to chat |
+| `Cmd/Ctrl + Enter` | Send message in Cascade |
+| `Escape` | Dismiss suggestions |
+
+### Best Practices
+
+- Use `@codebase` to find related code before making changes
+- Use Cascade for multi-file refactoring and complex tasks
+- Reference specific files with `@filename` for targeted edits
+- Break complex requests into smaller, focused steps
+- Review generated code before accepting changes
+- Use `@terminal` to reference command output for debugging
