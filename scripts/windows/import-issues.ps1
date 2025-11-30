@@ -86,6 +86,73 @@ function Test-Dependencies {
     }
 }
 
+function Get-RandomLabelColor {
+    # Array of pleasant, readable colors for labels
+    $colors = @(
+        "0366d6"  # Blue
+        "28a745"  # Green
+        "6f42c1"  # Purple
+        "e36209"  # Orange
+        "d73a49"  # Red
+        "0e8a16"  # Dark green
+        "1d76db"  # Light blue
+        "5319e7"  # Violet
+        "fbca04"  # Yellow
+        "b60205"  # Dark red
+        "d93f0b"  # Orange red
+        "c2e0c6"  # Light green
+        "bfdadc"  # Light cyan
+        "d4c5f9"  # Light purple
+        "f9d0c4"  # Light pink
+    )
+    return $colors | Get-Random
+}
+
+function New-LabelIfMissing {
+    param([string]$LabelName)
+
+    # Check if label exists
+    $existingLabels = gh label list --json name 2>$null | ConvertFrom-Json
+    $exists = $existingLabels | Where-Object { $_.name -eq $LabelName }
+
+    if ($exists) {
+        return $true
+    }
+
+    $color = Get-RandomLabelColor
+    Write-ColorOutput "Creating missing label: $LabelName" "Info"
+
+    try {
+        gh label create $LabelName --color $color 2>$null
+        if ($LASTEXITCODE -eq 0) {
+            Write-ColorOutput "Created label: $LabelName" "Success"
+            return $true
+        }
+        else {
+            Write-ColorOutput "Could not create label: $LabelName" "Warning"
+            return $false
+        }
+    }
+    catch {
+        Write-ColorOutput "Could not create label: $LabelName" "Warning"
+        return $false
+    }
+}
+
+function Confirm-LabelsExist {
+    param([array]$Labels)
+
+    if (-not $Labels -or $Labels.Count -eq 0) {
+        return
+    }
+
+    foreach ($label in $Labels) {
+        if (-not [string]::IsNullOrEmpty($label)) {
+            New-LabelIfMissing -LabelName $label | Out-Null
+        }
+    }
+}
+
 function Get-OrCreateMilestone {
     param([string]$MilestoneName)
 
@@ -124,6 +191,11 @@ function New-GitHubIssue {
 
     Write-Host ""
     Write-ColorOutput "[$Index/$Total] Processing: $Title" "Info"
+
+    # Ensure all labels exist before creating the issue
+    if (-not $DryRun -and $Labels -and $Labels.Count -gt 0) {
+        Confirm-LabelsExist -Labels $Labels
+    }
 
     # Build arguments
     $ghArgs = @("issue", "create", "--title", $Title)

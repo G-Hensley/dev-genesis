@@ -66,6 +66,68 @@ usage() {
     exit 1
 }
 
+# Generate a random color for labels
+generate_label_color() {
+    # Array of pleasant, readable colors for labels
+    local colors=(
+        "0366d6"  # Blue
+        "28a745"  # Green
+        "6f42c1"  # Purple
+        "e36209"  # Orange
+        "d73a49"  # Red
+        "0e8a16"  # Dark green
+        "1d76db"  # Light blue
+        "5319e7"  # Violet
+        "fbca04"  # Yellow
+        "b60205"  # Dark red
+        "d93f0b"  # Orange red
+        "c2e0c6"  # Light green
+        "bfdadc"  # Light cyan
+        "d4c5f9"  # Light purple
+        "f9d0c4"  # Light pink
+    )
+    echo "${colors[$RANDOM % ${#colors[@]}]}"
+}
+
+# Create a label if it doesn't exist
+create_label_if_missing() {
+    local label_name="$1"
+
+    # Check if label exists
+    if gh label list --json name -q ".[].name" | grep -qx "$label_name"; then
+        return 0
+    fi
+
+    local color
+    color=$(generate_label_color)
+
+    print_info "Creating missing label: $label_name"
+    if gh label create "$label_name" --color "$color" 2>/dev/null; then
+        print_success "Created label: $label_name"
+        return 0
+    else
+        print_warning "Could not create label: $label_name"
+        return 1
+    fi
+}
+
+# Ensure all labels for an issue exist
+ensure_labels_exist() {
+    local labels="$1"
+
+    if [ -z "$labels" ] || [ "$labels" = "null" ] || [ "$labels" = "[]" ]; then
+        return 0
+    fi
+
+    # Iterate through each label
+    local label
+    while IFS= read -r label; do
+        if [ -n "$label" ]; then
+            create_label_if_missing "$label"
+        fi
+    done < <(echo "$labels" | jq -r '.[]')
+}
+
 # Check dependencies
 check_dependencies() {
     if ! command -v gh &> /dev/null; then
@@ -124,6 +186,11 @@ create_issue() {
 
     echo ""
     print_info "[$index/$total] Processing: $title"
+
+    # Ensure all labels exist before creating the issue
+    if [ "$DRY_RUN" = false ]; then
+        ensure_labels_exist "$labels"
+    fi
 
     # Build command arguments as an array (secure - no shell injection)
     local -a cmd_args=("issue" "create" "--title" "$title")
