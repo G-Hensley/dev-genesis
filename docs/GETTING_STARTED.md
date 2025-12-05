@@ -102,7 +102,7 @@ branches:
   - name: main
     protection:
       required_pull_request_reviews:
-        required_approving_review_count: 1  # Require 1+ team member approval
+        required_approving_review_count: 1  # Require at least 1 team member approval
         require_code_owner_reviews: true    # Enable when CODEOWNERS is ready
 ```
 
