@@ -46,9 +46,18 @@ After running setup, update these files:
    - Go to Settings → Security → Private vulnerability reporting
    - Enable the feature
 
-4. **Install Settings App** (optional, for auto-config)
-   - Install: https://github.com/apps/settings
-   - The `.github/settings.yml` will auto-configure labels, branch protection, etc.
+4. **Install Settings App** (recommended, for auto-config)
+   - Install the Probot Settings app: https://github.com/apps/settings
+   - Grant it access to your repository
+   - The app will automatically configure your repository based on `.github/settings.yml`:
+     - **Branch protection**: Requires PRs to main, prevents force pushes
+     - **Required status checks**: All CI and security workflows must pass
+     - **Labels**: Auto-creates all labels needed for issue templates
+     - **Merge settings**: Enforces squash merges, deletes branches after merge
+   - **For solo developers**: Branch protection is pre-configured with 0 required approvals
+   - **For teams**: Edit `.github/settings.yml` to increase `required_approving_review_count`
+
+   > **Note**: Without the Settings app, you'll need to manually configure these settings in your GitHub repository. The app ensures consistent configuration across repos created from this template.
 
 > **Note:** The security scan workflows are configured to work out-of-the-box on fresh repositories with no code. CodeQL will automatically skip if no source files are detected, and all scans handle empty repositories gracefully.
 
