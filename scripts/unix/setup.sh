@@ -11,6 +11,8 @@
 # - Provide next steps guidance
 #
 # Usage: ./scripts/setup.sh
+#
+# Note: Compatible with Bash 3.2+ (macOS default) - no associative arrays used
 #===============================================================================
 
 set -e
@@ -48,16 +50,34 @@ print_banner() {
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_DIR="$(dirname "$(dirname "$SCRIPT_DIR")")"
 
-# AI Assistant configuration files
-declare -A AI_FILES
-AI_FILES["claude"]=".claude/"
-AI_FILES["claude_md"]="CLAUDE.md"
-AI_FILES["cursor"]=".cursorrules"
-AI_FILES["copilot"]=".github/copilot-instructions.md"
-AI_FILES["windsurf"]=".windsurfrules"
+# AI Assistant names and their configuration files (parallel arrays for Bash 3.2 compatibility)
+# Note: Claude has two files (.claude/ directory and CLAUDE.md), both managed together
+AI_NAMES=("claude" "cursor" "copilot" "windsurf")
+AI_FILES=(".claude/" ".cursorrules" ".github/copilot-instructions.md" ".windsurfrules")
+AI_LABELS=("Claude Code (Anthropic's CLI assistant)" "Cursor (AI-powered code editor)" "GitHub Copilot" "Windsurf (Codeium's AI editor)")
 
-# Track selected assistants
-declare -A SELECTED_AI
+# Additional Claude file (CLAUDE.md) - managed alongside .claude/
+CLAUDE_MD_FILE="CLAUDE.md"
+
+# Track selected assistants (space-separated string for Bash 3.2 compatibility)
+SELECTED_AI=""
+
+# Helper function to check if an AI is selected
+is_selected() {
+    local ai="$1"
+    echo "$SELECTED_AI" | grep -q -w "$ai"
+}
+
+# Helper function to get file path for an AI
+get_ai_file() {
+    local ai="$1"
+    for i in "${!AI_NAMES[@]}"; do
+        if [ "${AI_NAMES[$i]}" = "$ai" ]; then
+            echo "${AI_FILES[$i]}"
+            return
+        fi
+    done
+}
 
 # Check if running in the correct directory
 check_directory() {
@@ -116,10 +136,10 @@ select_ai_assistants() {
     echo ""
     echo -e "${BOLD}Which AI assistant(s) will you use?${NC}"
     echo ""
-    echo "  1) Claude Code (Anthropic's CLI assistant)"
-    echo "  2) Cursor (AI-powered code editor)"
-    echo "  3) GitHub Copilot"
-    echo "  4) Windsurf (Codeium's AI editor)"
+    echo "  1) ${AI_LABELS[0]}"
+    echo "  2) ${AI_LABELS[1]}"
+    echo "  3) ${AI_LABELS[2]}"
+    echo "  4) ${AI_LABELS[3]}"
     echo "  5) All of the above"
     echo "  6) None (I'll configure manually)"
     echo ""
@@ -129,20 +149,11 @@ select_ai_assistants() {
     # Parse choices
     for choice in $choices; do
         case $choice in
-            1)
-                SELECTED_AI["claude"]=true
-                SELECTED_AI["claude_md"]=true
-                ;;
-            2) SELECTED_AI["cursor"]=true ;;
-            3) SELECTED_AI["copilot"]=true ;;
-            4) SELECTED_AI["windsurf"]=true ;;
-            5)
-                SELECTED_AI["claude"]=true
-                SELECTED_AI["claude_md"]=true
-                SELECTED_AI["cursor"]=true
-                SELECTED_AI["copilot"]=true
-                SELECTED_AI["windsurf"]=true
-                ;;
+            1) SELECTED_AI="$SELECTED_AI claude" ;;
+            2) SELECTED_AI="$SELECTED_AI cursor" ;;
+            3) SELECTED_AI="$SELECTED_AI copilot" ;;
+            4) SELECTED_AI="$SELECTED_AI windsurf" ;;
+            5) SELECTED_AI="claude cursor copilot windsurf" ;;
             6) ;; # None selected
             *)
                 print_warning "Invalid choice: $choice (ignoring)"
@@ -158,28 +169,40 @@ cleanup_unused_configs() {
 
     local removed=false
 
-    for ai in "${!AI_FILES[@]}"; do
-        local file_path="$PROJECT_DIR/${AI_FILES[$ai]}"
+    for i in "${!AI_NAMES[@]}"; do
+        local ai="${AI_NAMES[$i]}"
+        local file="${AI_FILES[$i]}"
+        local file_path="$PROJECT_DIR/$file"
 
-        if [ "${SELECTED_AI[$ai]}" != true ]; then
+        if ! is_selected "$ai"; then
             if [ -e "$file_path" ]; then
                 echo ""
-                read -p "Remove $ai configuration (${AI_FILES[$ai]})? (y/N) " -n 1 -r
+                read -p "Remove $ai configuration ($file)? (y/N) " -n 1 -r
                 echo ""
 
                 if [[ $REPLY =~ ^[Yy]$ ]]; then
                     rm -rf "$file_path"
-                    print_success "Removed ${AI_FILES[$ai]}"
+                    print_success "Removed $file"
                     removed=true
+
+                    # Also remove CLAUDE.md if removing Claude configuration
+                    if [ "$ai" = "claude" ] && [ -f "$PROJECT_DIR/$CLAUDE_MD_FILE" ]; then
+                        rm -f "$PROJECT_DIR/$CLAUDE_MD_FILE"
+                        print_success "Removed $CLAUDE_MD_FILE"
+                    fi
                 else
-                    print_info "Kept ${AI_FILES[$ai]}"
+                    print_info "Kept $file"
                 fi
             fi
         else
             if [ -e "$file_path" ]; then
-                print_success "$ai configuration ready: ${AI_FILES[$ai]}"
+                print_success "$ai configuration ready: $file"
+                # Also check for CLAUDE.md when Claude is selected
+                if [ "$ai" = "claude" ] && [ -f "$PROJECT_DIR/$CLAUDE_MD_FILE" ]; then
+                    print_success "$ai configuration ready: $CLAUDE_MD_FILE"
+                fi
             else
-                print_warning "$ai configuration not found: ${AI_FILES[$ai]}"
+                print_warning "$ai configuration not found: $file"
             fi
         fi
     done
@@ -270,7 +293,7 @@ show_next_steps() {
     echo "     - docs/AI_ASSISTANTS.md - AI tool setup guides"
     echo ""
 
-    if [ "${SELECTED_AI["claude"]}" = true ]; then
+    if is_selected "claude"; then
         echo "  5. ${CYAN}Claude Code Commands${NC}"
         echo "     Available commands in .claude/commands/:"
         echo "     - /code-review - Comprehensive code review"
