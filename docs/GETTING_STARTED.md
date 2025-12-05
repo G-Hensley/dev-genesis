@@ -61,6 +61,112 @@ After running setup, update these files:
 
 > **Note:** The security scan workflows are configured to work out-of-the-box on fresh repositories with no code. CodeQL will automatically skip if no source files are detected, and all scans handle empty repositories gracefully.
 
+## Repository Settings (Probot)
+
+Dev Genesis uses [Probot Settings](https://probot.github.io/apps/settings/) to automatically configure your repository with branch protection rules, labels, and other professional-grade settings. This saves you hours of manual configuration and ensures consistency across all repositories created from this template.
+
+### Setup (One-Time, 5 Minutes)
+
+1. **Install the Settings App**
+   - Visit: https://github.com/apps/settings
+   - Click "Install" or "Configure" if you've used it before
+   - Choose your account or organization
+   - Select "All repositories" or choose specific repos
+
+2. **Grant Access to Your Repository**
+   - If you selected specific repos, make sure your new project is included
+   - The app needs permissions to manage repository settings
+
+3. **Automatic Configuration**
+   - The app reads `.github/settings.yml` in your repository
+   - Settings are applied automatically within seconds
+   - You'll see labels created, branch protection enabled, etc.
+
+### What Gets Configured Automatically
+
+When you install the Probot Settings app, it applies all settings from `.github/settings.yml`:
+
+| Category | What's Configured | Why It Matters |
+|----------|-------------------|----------------|
+| **Branch Protection** | Requires PR before merge to main<br>Prevents force pushes<br>Requires all status checks to pass | Protects your main branch from accidental damage<br>Ensures code quality through CI/CD |
+| **Required Status Checks** | CodeQL security scanning<br>Secrets detection<br>Semgrep SAST<br>CI builds and tests | Prevents merging code with security issues<br>Blocks broken builds |
+| **Labels** | 30+ labels for issues and PRs<br>Includes: bug, feature, priority levels, size labels, area labels | Organizes issues automatically<br>Matches all issue template needs |
+| **Merge Settings** | Squash merge only<br>Delete branch after merge<br>Auto-merge enabled | Keeps clean git history<br>Prevents branch clutter |
+| **Repository Features** | Issues enabled<br>Wiki disabled<br>Discussions enabled | Streamlined project management |
+
+### For Solo Developers
+
+The branch protection is pre-configured with **0 required approvals**, so you can merge your own PRs without waiting. You still get:
+- ✅ Required PR workflow (prevents direct pushes to main)
+- ✅ All CI and security checks must pass
+- ✅ Linear git history
+- ✅ No force pushes allowed
+
+### For Teams
+
+Edit `.github/settings.yml` to increase protection:
+
+```yaml
+required_pull_request_reviews:
+  required_approving_review_count: 1  # Require 1+ team member approval
+  require_code_owner_reviews: true    # Enable when CODEOWNERS is ready
+```
+
+### Customizing Settings
+
+All settings are in `.github/settings.yml`. Common customizations:
+
+**Add more required status checks:**
+```yaml
+required_status_checks:
+  contexts:
+    - "Build & Test"
+    - "E2E Tests"
+    - "Lighthouse CI"
+```
+
+**Change merge strategy:**
+```yaml
+allow_squash_merge: true   # Keep squash (recommended)
+allow_merge_commit: true   # Allow merge commits
+allow_rebase_merge: false  # Disable rebase
+```
+
+**Add collaborators:**
+```yaml
+collaborators:
+  - username: teammate1
+    permission: push
+```
+
+See the [Probot Settings documentation](https://github.com/repository-settings/app#usage) for all available options.
+
+### Without the Settings App
+
+If you choose not to install Probot Settings, you'll need to manually configure:
+1. Branch protection rules in Settings → Branches
+2. Required status checks (list each workflow job)
+3. Labels in Settings → Labels (30+ labels to create)
+4. Merge settings in Settings → General
+
+This can take 30-60 minutes vs. the 5-minute automated setup.
+
+### Troubleshooting
+
+**Labels not created?**
+- Check that the app has access to your repository
+- Look for errors in Settings → Installed GitHub Apps → Settings → Recent Deliveries
+
+**Branch protection not working?**
+- Ensure you pushed `.github/settings.yml` to the main branch
+- The app only syncs on pushes to the default branch
+- Check that required status checks match your actual workflow job names
+
+**Status checks failing?**
+- See the status check name in a PR (it shows what GitHub expects)
+- Update `.github/settings.yml` to match the exact names
+- Remember: CodeQL includes the language in the name: `"CodeQL Analysis (javascript-typescript)"`
+
 ## Development Workflow Overview
 
 ```
