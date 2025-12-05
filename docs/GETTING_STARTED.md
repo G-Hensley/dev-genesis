@@ -73,7 +73,7 @@ Dev Genesis uses [Probot Settings](https://github.com/apps/settings) to automati
    - Settings are applied automatically within seconds
    - You'll see labels created, branch protection enabled, etc.
 
-### What Gets Configured Automatically
+### Automatically Configured Settings
 
 When you install the Probot Settings app, it applies all settings from `.github/settings.yml`:
 
