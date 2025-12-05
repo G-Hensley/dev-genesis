@@ -145,7 +145,8 @@ docker pull USERNAME/REPO:latest
 docker run -p 8080:8080 USERNAME/REPO:latest
 
 # Or with Docker Compose
-git clone https://github.com/USERNAME/REPO.git && cd REPO
+git clone https://github.com/USERNAME/REPO.git
+cd REPO
 docker-compose up
 ```
 
