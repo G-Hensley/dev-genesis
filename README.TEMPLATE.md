@@ -8,21 +8,21 @@
 This template is designed for quick customization (< 10 minutes). Follow this checklist:
 
 □ Line 1: Replace [Project Name] with your actual project name
-□ Line 11: Write a one-line tagline (under 10 words)
-□ Lines 13-18: Customize the badges (see Badge Customization Guide below)
-□ Lines 39-43: Fill in the problem and solution statements
-□ Lines 53-59: Add Quick Start commands for your tech stack
-□ Line 71: Add screenshot/demo GIF path (or delete Visual Preview section)
-□ Lines 83-89: Update Wiki links (or replace with inline docs)
-□ Lines 99-102: Add actual contributors
-□ Line 112: Confirm license type matches your LICENSE file
-□ FINAL STEP: Delete this entire checklist section (lines 3-29)
+□ Line 50: Write a one-line tagline (under 10 words)
+□ Lines 52-54: Customize the badges (see Badge Customization Guide below)
+□ Lines 62-70: Fill in the problem and solution statements
+□ Lines 76-194: Add Quick Start commands for your tech stack (choose one option, delete others)
+□ Line 194: Add screenshot/demo GIF path (or delete Visual Preview section if not needed)
+□ Line 200: Update Wiki link with your USERNAME/REPO
+□ Lines 235-236: Add actual contributors
+□ Line 255: Confirm license type matches your LICENSE file
+□ FINAL STEP: Delete this entire checklist section (lines 3-48)
 
 ============================================================================
 BADGE CUSTOMIZATION GUIDE
 ============================================================================
 
-Replace the placeholder badges below (lines 13-18) with your project details:
+Replace the placeholder badges below (lines 52-54) with your project details:
 
 1. VERSION BADGE:
    - Update "1.0.0" to your current version
@@ -197,7 +197,8 @@ Screenshots work for static interfaces. Add them to docs/images/ folder.
 
 ## 📚 Full Documentation & Contributing
 
-All comprehensive documentation lives in our **[Wiki](../../wiki)**:
+All comprehensive documentation lives in our **[Wiki](https://github.com/USERNAME/REPO/wiki)**:
+<!-- Replace USERNAME/REPO above with your actual repository path -->
 
 - **Getting Started** - Detailed setup, configuration, and first-time use
 - **How-to Guides** - Step-by-step instructions for common tasks
@@ -266,7 +267,7 @@ Ensure this badge and text match your actual LICENSE file:
 
 If you change licenses, update:
 1. LICENSE file in repository root
-2. This line (line 112)
-3. Badge on line 15
+2. This line (line 255)
+3. Badge on line 53
 ============================================================================
 -->
