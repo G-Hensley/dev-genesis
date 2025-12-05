@@ -167,7 +167,7 @@ docker-compose up
 
 Full documentation is available in our **[Wiki](https://github.com/USERNAME/REPO/wiki)**:
 
-> **DELETE:** Update the Wiki link above with your USERNAME/REPO, then delete this block.
+> **DELETE:** Update all links above with your USERNAME/REPO (not just the Wiki link), then delete this block.
 
 | Guide | Description |
 |-------|-------------|
