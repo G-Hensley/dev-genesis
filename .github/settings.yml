@@ -1,10 +1,29 @@
-# Repository settings managed by Probot Settings app
+# ============================================================================
+# Repository Settings - Managed by Probot Settings App
+# ============================================================================
 # https://github.com/probot/settings
 #
-# To use this file:
+# This file automatically configures your GitHub repository settings when the
+# Probot Settings app is installed. It handles:
+#   - Branch protection rules
+#   - Required status checks
+#   - Label management
+#   - Repository features and merge settings
+#
+# SETUP INSTRUCTIONS:
 # 1. Install the Settings app: https://github.com/apps/settings
-# 2. Customize the values below
-# 3. Changes will be applied automatically when pushed to the default branch
+# 2. Grant it access to this repository
+# 3. Customize the values below for your project
+# 4. Push changes to main branch - settings apply automatically
+#
+# IMPORTANT FOR TEMPLATE USERS:
+# - This file is pre-configured with sensible defaults for the template
+# - Branch protection is enabled but flexible for solo developers
+# - Status checks reference the template's workflow jobs
+# - Customize required_status_checks when you modify ci.yml for your stack
+# - All labels match the issue templates and workflow needs
+#
+# ============================================================================
 
 # General repository settings
 repository:
@@ -191,29 +210,44 @@ branches:
   - name: main
     protection:
       # Require pull request reviews before merging
+      # Note: For solo developers, you may want to set required_approving_review_count to 0
+      # or disable branch protection until you have collaborators
       required_pull_request_reviews:
-        required_approving_review_count: 1
+        required_approving_review_count: 0  # Set to 1+ when you have team members
         dismiss_stale_reviews: true
-        require_code_owner_reviews: true
-        require_last_push_approval: false
+        require_code_owner_reviews: false  # Enable when CODEOWNERS file is populated
+        require_last_push_approval: false  # Useful for teams to prevent self-approval bypass
 
       # Require status checks to pass before merging
-      # ⚠️  IMPORTANT: Add your CI job names here once you have workflows set up
-      # Without status checks, PRs can be merged even if CI fails!
+      # ⚠️  IMPORTANT: Customize this list based on your project's CI workflows
+      # For template repos: The workflows below are from the template's workflows
+      # Once you customize ci.yml for your stack, update this list accordingly
       required_status_checks:
         strict: true
-        contexts: []
-        # Uncomment and customize based on your CI workflow job names:
-        # - "build"
-        # - "test"
-        # - "lint"
-        # - "CodeQL Analysis"        # From security-scan.yml
-        # - "Semgrep SAST"           # From security-scan.yml
+        contexts:
+          # Security workflows (from security-scan.yml)
+          - "CodeQL Analysis (javascript-typescript)"  # Adjust language if needed
+          - "Secrets Scan"
+          - "Semgrep SAST"
+
+          # CI workflow placeholder (from ci.yml)
+          # Once you customize ci.yml, replace "CI Placeholder" with your actual job names
+          - "CI Placeholder"
+
+          # Example CI job names (uncomment when you enable them in ci.yml):
+          # - "Build & Test"
+          # - "build-and-test (18.x)"  # For matrix builds
+          # - "build-and-test (20.x)"  # For matrix builds
+
+          # Label sync workflow (from label-sync.yml)
+          - "Sync Labels"
 
       # Enforce all configured restrictions for administrators
+      # Set to false for template repos to allow flexibility during initial setup
+      # Set to true in production repos for maximum security
       enforce_admins: false
 
-      # Require linear history
+      # Require linear history (prevents merge commits)
       required_linear_history: true
 
       # Allow force pushes
