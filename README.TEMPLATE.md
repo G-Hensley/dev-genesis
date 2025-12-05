@@ -133,7 +133,8 @@ brew install YOUR-PACKAGE      # Homebrew
 
 # Or download from releases
 curl -L https://github.com/USERNAME/REPO/releases/latest/download/BINARY -o BINARY
-chmod +x BINARY && ./BINARY --help
+chmod +x BINARY
+./BINARY --help
 ```
 
 ### Option 6: Docker
