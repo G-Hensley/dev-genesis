@@ -34,13 +34,23 @@ After running setup, update these files:
    - Go to Settings → General → Features
    - Check "Discussions"
 
-2. **Enable Private Vulnerability Reporting**
+2. **Enable Security Features** (Required for security workflows)
+   - Go to Settings → Security → Code security and analysis
+   - Enable "Dependency graph" (usually enabled by default)
+   - Enable "Dependabot alerts"
+   - Enable "Dependabot security updates"
+   - Enable "Code scanning" (this allows CodeQL and other SARIF uploads)
+   - Enable "Secret scanning" (available for public repos, or private repos on paid plans)
+
+3. **Enable Private Vulnerability Reporting**
    - Go to Settings → Security → Private vulnerability reporting
    - Enable the feature
 
-3. **Install Settings App** (optional, for auto-config)
+4. **Install Settings App** (optional, for auto-config)
    - Install: https://github.com/apps/settings
    - The `.github/settings.yml` will auto-configure labels, branch protection, etc.
+
+> **Note:** The security scan workflows are configured to work out-of-the-box on fresh repositories with no code. CodeQL will automatically skip if no source files are detected, and all scans handle empty repositories gracefully.
 
 ## Development Workflow Overview
 
