@@ -41,12 +41,18 @@ gh repo create my-project --template G-Hensley/dev-genesis
 ./scripts/unix/setup.sh      # macOS/Linux
 .\scripts\windows\setup.ps1  # Windows
 
-# 3. Plan with AI (copy prompts to Claude, ChatGPT, etc.)
+# 3. Install Probot Settings app (5 min - recommended)
+# Automatically configures branch protection, labels, and repo settings
+# Visit: https://github.com/apps/settings
+
+# 4. Plan with AI (copy prompts to Claude, ChatGPT, etc.)
 # prompts/IDEA_REFINEMENT.md → prompts/PROJECT_PLANNING.md
 
-# 4. Import generated issues
+# 5. Import generated issues
 ./scripts/unix/import-issues.sh issues.json
 ```
+
+> **💡 Pro Tip:** Install the [Probot Settings app](https://github.com/apps/settings) to automatically configure branch protection, required status checks, and 30+ labels. Takes 5 minutes and saves you hours of manual setup. See [Getting Started Guide](docs/GETTING_STARTED.md#repository-settings-probot) for details.
 
 ---
 
