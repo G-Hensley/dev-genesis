@@ -65,7 +65,10 @@ SELECTED_AI=""
 # Helper function to check if an AI is selected
 is_selected() {
     local ai="$1"
-    echo "$SELECTED_AI" | grep -q -w "$ai"
+    case " $SELECTED_AI " in
+        *" $ai "*) return 0 ;;
+        *) return 1 ;;
+    esac
 }
 
 # Helper function to get file path for an AI
