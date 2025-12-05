@@ -226,7 +226,9 @@ branches:
         strict: true
         contexts:
           # Security workflows (from security-scan.yml)
-          - "CodeQL Analysis (javascript-typescript)"  # Adjust language if needed
+          # ⚠️  If you change the language matrix in security-scan.yml, update the language(s) here
+          # For multi-language projects, list each status check (e.g., "CodeQL Analysis (python)", "CodeQL Analysis (go)")
+          - "CodeQL Analysis (javascript-typescript)"
           - "Secrets Scan"
           - "Semgrep SAST"
 
@@ -239,8 +241,8 @@ branches:
           # - "build-and-test (18.x)"  # For matrix builds
           # - "build-and-test (20.x)"  # For matrix builds
 
-          # Label sync workflow (from label-sync.yml)
-          - "Sync Labels"
+          # Note: Auto Label workflow jobs are not included here because they run on
+          # PR/issue events only, not on pushes to main, so they won't block merges
 
       # Enforce all configured restrictions for administrators
       # Set to false for template repos to allow flexibility during initial setup
