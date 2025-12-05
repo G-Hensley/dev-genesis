@@ -79,7 +79,7 @@ When you install the Probot Settings app, it applies all settings from `.github/
 
 | Category | What's Configured | Why It Matters |
 |----------|-------------------|----------------|
-| **Branch Protection** | Requires PR before merge to main<br>Prevents force pushes<br>Requires all status checks to pass | Protects your main branch from accidental damage<br>Ensures code quality through CI/CD |
+| **Branch Protection** | Requires a PR before merging to `main`<br>Prevents force pushes<br>Requires all status checks to pass | Protects your main branch from accidental damage<br>Ensures code quality through CI/CD |
 | **Required Status Checks** | CodeQL security scanning<br>Secrets detection<br>Semgrep SAST<br>CI builds and tests | Prevents merging code with security issues<br>Blocks broken builds |
 | **Labels** | 30+ labels for issues and PRs<br>Includes: bug, feature, priority levels, size labels, area labels | Organizes issues automatically<br>Matches all issue template needs |
 | **Merge Settings** | Squash merge only<br>Delete branch after merge<br>Auto-merge enabled | Keeps clean git history<br>Prevents branch clutter |
