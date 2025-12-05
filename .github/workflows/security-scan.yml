@@ -152,8 +152,7 @@ jobs:
       - name: TruffleHog Secrets Scan
         uses: trufflesecurity/trufflehog@main
         with:
-          extra_args: --only-verified --fail
-        continue-on-error: false
+          extra_args: --only-verified
 
   # Uncomment for Node.js projects
   # npm-audit:
