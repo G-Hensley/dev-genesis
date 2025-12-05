@@ -51,6 +51,7 @@ PROJECT_DIR="$(dirname "$(dirname "$SCRIPT_DIR")")"
 # AI Assistant configuration files
 declare -A AI_FILES
 AI_FILES["claude"]=".claude/"
+AI_FILES["claude_md"]="CLAUDE.md"
 AI_FILES["cursor"]=".cursorrules"
 AI_FILES["copilot"]=".github/copilot-instructions.md"
 AI_FILES["windsurf"]=".windsurfrules"
@@ -128,12 +129,16 @@ select_ai_assistants() {
     # Parse choices
     for choice in $choices; do
         case $choice in
-            1) SELECTED_AI["claude"]=true ;;
+            1)
+                SELECTED_AI["claude"]=true
+                SELECTED_AI["claude_md"]=true
+                ;;
             2) SELECTED_AI["cursor"]=true ;;
             3) SELECTED_AI["copilot"]=true ;;
             4) SELECTED_AI["windsurf"]=true ;;
             5)
                 SELECTED_AI["claude"]=true
+                SELECTED_AI["claude_md"]=true
                 SELECTED_AI["cursor"]=true
                 SELECTED_AI["copilot"]=true
                 SELECTED_AI["windsurf"]=true
