@@ -12,7 +12,7 @@ This template is designed for quick customization (< 10 minutes). Follow this ch
 □ Lines 52-54: Customize the badges (see Badge Customization Guide below)
 □ Lines 62-70: Fill in the problem and solution statements
 □ Lines 76-194: Add Quick Start commands for your tech stack (choose one option, delete others)
-□ Line 194: Add screenshot/demo GIF path (or delete Visual Preview section if not needed)
+□ Lines 178-194: Add screenshot/demo (or delete Visual Preview section if not needed)
 □ Line 200: Update Wiki link with your USERNAME/REPO
 □ Lines 235-236: Add actual contributors
 □ Line 255: Confirm license type matches your LICENSE file
@@ -30,7 +30,7 @@ Replace the placeholder badges below (lines 52-54) with your project details:
 
 2. LICENSE BADGE:
    - Keep "MIT" if using MIT license
-   - Change to "Apache%202.0", "GPL--3.0", etc. for other licenses
+   - Change to "Apache%202.0", "GPL-3.0", etc. for other licenses
 
 3. BUILD STATUS:
    - Development = yellow, Production = brightgreen, Planning = lightgrey
