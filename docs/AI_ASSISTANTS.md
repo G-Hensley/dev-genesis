@@ -6,7 +6,7 @@ This guide explains how to use dev-genesis with different AI coding assistants.
 
 | Assistant | Config File | Type |
 |-----------|-------------|------|
-| Claude Code | `.claude/` | CLI tool |
+| Claude Code | `CLAUDE.md` + `.claude/` | CLI tool |
 | Cursor | `.cursorrules` | IDE |
 | GitHub Copilot | `.github/copilot-instructions.md` | IDE extension |
 | Windsurf | `.windsurfrules` | IDE |
@@ -40,7 +40,11 @@ brew install claude-code
 
 ### Configuration
 
-The `.claude/` directory contains:
+Claude Code uses two configuration locations:
+
+**`CLAUDE.md`** (project root) - Project intelligence file that provides Claude with context about your project, tech stack, architecture, and common commands. Customize this file to help Claude understand your codebase.
+
+**`.claude/`** directory - Contains settings and custom commands:
 
 ```
 .claude/

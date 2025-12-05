@@ -62,10 +62,11 @@ if (-not $Script:ProjectDir) {
 }
 
 $Script:AIFiles = @{
-    "claude"   = ".claude"
-    "cursor"   = ".cursorrules"
-    "copilot"  = ".github\copilot-instructions.md"
-    "windsurf" = ".windsurfrules"
+    "claude"    = ".claude"
+    "claude_md" = "CLAUDE.md"
+    "cursor"    = ".cursorrules"
+    "copilot"   = ".github\copilot-instructions.md"
+    "windsurf"  = ".windsurfrules"
 }
 
 $Script:SelectedAI = @{}
@@ -143,12 +144,16 @@ function Select-AIAssistants {
 
     foreach ($choice in $choices.Split(' ', [StringSplitOptions]::RemoveEmptyEntries)) {
         switch ($choice) {
-            "1" { $Script:SelectedAI["claude"] = $true }
+            "1" {
+                $Script:SelectedAI["claude"] = $true
+                $Script:SelectedAI["claude_md"] = $true
+            }
             "2" { $Script:SelectedAI["cursor"] = $true }
             "3" { $Script:SelectedAI["copilot"] = $true }
             "4" { $Script:SelectedAI["windsurf"] = $true }
             "5" {
                 $Script:SelectedAI["claude"] = $true
+                $Script:SelectedAI["claude_md"] = $true
                 $Script:SelectedAI["cursor"] = $true
                 $Script:SelectedAI["copilot"] = $true
                 $Script:SelectedAI["windsurf"] = $true
