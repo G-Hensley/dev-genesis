@@ -165,6 +165,10 @@ This project includes custom Claude Code commands in `.claude/commands/`:
 | `/performance-review` | Performance optimization suggestions |
 | `/generate-tests` | Generate test cases |
 | `/pre-commit-check` | Pre-commit verification |
+| `/accessibility-review` | WCAG compliance check |
+| `/refactor-suggestions` | Code improvement recommendations |
+| `/test-coverage-check` | Test coverage analysis |
+| `/documentation-review` | Documentation completeness check |
 
 ## Testing Strategy
 
