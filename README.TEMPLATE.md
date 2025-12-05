@@ -23,9 +23,9 @@ CHECKLIST:
 ================================================================================
 -->
 
-> **Your tagline here:** _Replace this with a one-line description of what your project does (under 10 words)._
+> **Your tagline here:** _Replace this entire blockquote with a one-line description of what your project does (under 10 words)._
 >
-> **DELETE:** Remove this blockquote after adding your tagline below.
+> **DELETE:** Replace this entire blockquote with your tagline.
 
 ![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
