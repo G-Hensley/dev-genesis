@@ -46,24 +46,15 @@ After running setup, update these files:
    - Go to Settings → Security → Private vulnerability reporting
    - Enable the feature
 
-4. **Install Settings App** (recommended, for auto-config)
-   - Install the Probot Settings app: https://github.com/apps/settings
-   - Grant it access to your repository
-   - The app will automatically configure your repository based on `.github/settings.yml`:
-     - **Branch protection**: Requires PRs to main, prevents force pushes
-     - **Required status checks**: All CI and security workflows must pass
-     - **Labels**: Auto-creates all labels needed for issue templates
-     - **Merge settings**: Enforces squash merges, deletes branches after merge
-   - **For solo developers**: Branch protection is pre-configured with 0 required approvals
-   - **For teams**: Edit `.github/settings.yml` to increase `required_approving_review_count`
-
-   > **Note**: Without the Settings app, you'll need to manually configure these settings in your GitHub repository. The app ensures consistent configuration across repos created from this template.
+4. **Install Settings App** (recommended, 5-minute setup)
+   - Automatically configures branch protection, labels, and repository settings
+   - See [Repository Settings (Probot)](#repository-settings-probot) section below for detailed setup instructions
 
 > **Note:** The security scan workflows are configured to work out-of-the-box on fresh repositories with no code. CodeQL will automatically skip if no source files are detected, and all scans handle empty repositories gracefully.
 
 ## Repository Settings (Probot)
 
-Dev Genesis uses [Probot Settings](https://probot.github.io/apps/settings/) to automatically configure your repository with branch protection rules, labels, and other professional-grade settings. This saves you hours of manual configuration and ensures consistency across all repositories created from this template.
+Dev Genesis uses [Probot Settings](https://github.com/apps/settings) to automatically configure your repository with branch protection rules, labels, and other professional-grade settings. This saves you hours of manual configuration and ensures consistency across all repositories created from this template.
 
 ### Setup (One-Time, 5 Minutes)
 
@@ -104,39 +95,49 @@ The branch protection is pre-configured with **0 required approvals**, so you ca
 
 ### For Teams
 
-Edit `.github/settings.yml` to increase protection:
+Edit `.github/settings.yml` to increase protection. In the `branches.main.protection` section:
 
 ```yaml
-required_pull_request_reviews:
-  required_approving_review_count: 1  # Require 1+ team member approval
-  require_code_owner_reviews: true    # Enable when CODEOWNERS is ready
+branches:
+  - name: main
+    protection:
+      required_pull_request_reviews:
+        required_approving_review_count: 1  # Require 1+ team member approval
+        require_code_owner_reviews: true    # Enable when CODEOWNERS is ready
 ```
 
 ### Customizing Settings
 
 All settings are in `.github/settings.yml`. Common customizations:
 
-**Add more required status checks:**
+**Add more required status checks** (in `branches.main.protection` section):
 ```yaml
-required_status_checks:
-  contexts:
-    - "Build & Test"
-    - "E2E Tests"
-    - "Lighthouse CI"
+branches:
+  - name: main
+    protection:
+      required_status_checks:
+        strict: true
+        contexts:
+          - "Build & Test"
+          - "E2E Tests"
+          - "Lighthouse CI"
 ```
 
-**Change merge strategy:**
+**Change merge strategy** (in `repository` section):
 ```yaml
-allow_squash_merge: true   # Keep squash (recommended)
-allow_merge_commit: true   # Allow merge commits
-allow_rebase_merge: false  # Disable rebase
+repository:
+  allow_squash_merge: true   # Keep squash (recommended)
+  allow_merge_commit: true   # Allow merge commits
+  allow_rebase_merge: false  # Disable rebase
 ```
 
-**Add collaborators:**
+**Add collaborators** (at root level):
 ```yaml
 collaborators:
   - username: teammate1
     permission: push
+  - username: teammate2
+    permission: pull
 ```
 
 See the [Probot Settings documentation](https://github.com/repository-settings/app#usage) for all available options.
