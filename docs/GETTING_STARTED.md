@@ -28,52 +28,50 @@ After running setup, update these files:
 2. **SECURITY.md** - Update the security contact email
 3. **package.json** (or equivalent) - Add when you choose your tech stack
 
-### 3. Configure GitHub Repository
+### 3. Install Probot Settings App (Recommended - 5 Minutes)
 
-1. **Enable GitHub Discussions**
-   - Go to Settings → General → Features
-   - Check "Discussions"
+The fastest way to configure your repository is with the [Probot Settings](https://github.com/apps/settings) app. It automatically applies all settings from `.github/settings.yml`:
 
-2. **Enable Security Features** (Required for security workflows)
-   - Go to Settings → Security → Code security and analysis
-   - Enable "Dependency graph" (usually enabled by default)
-   - Enable "Dependabot alerts"
-   - Enable "Dependabot security updates"
-   - Enable "Code scanning" (this allows CodeQL and other SARIF uploads)
-   - Enable "Secret scanning" (available for public repos, or private repos on paid plans)
+1. **Install the App**: Visit https://github.com/apps/settings and click "Install"
+2. **Grant Access**: Select your account and choose this repository
+3. **Done!** Settings are applied automatically within seconds
 
-3. **Enable Private Vulnerability Reporting**
+This configures:
+- ✅ Branch protection (requires PR, blocks force push)
+- ✅ Required status checks (CodeQL, Secrets, Semgrep, CI)
+- ✅ 30+ labels for issues and PRs
+- ✅ Merge settings (squash merge, auto-delete branches)
+
+See [Repository Settings (Probot)](#repository-settings-probot) below for customization options.
+
+### 4. Enable Security Features (Required for Workflows)
+
+These settings are **not** managed by Probot and must be enabled manually:
+
+1. **Go to** Settings → Security → Code security and analysis
+
+2. **Enable these features:**
+   - ✅ Dependency graph (usually enabled by default)
+   - ✅ Dependabot alerts
+   - ✅ Dependabot security updates
+   - ✅ Code scanning (required for CodeQL SARIF uploads)
+   - ✅ Secret scanning (public repos, or private repos on paid plans)
+
+3. **Enable Private Vulnerability Reporting:**
    - Go to Settings → Security → Private vulnerability reporting
    - Enable the feature
 
-4. **Install Settings App** (recommended, 5-minute setup)
-   - Automatically configures branch protection, labels, and repository settings
-   - See [Repository Settings (Probot)](#repository-settings-probot) section below for detailed setup instructions
+4. **Enable Discussions (optional):**
+   - Go to Settings → General → Features
+   - Check "Discussions"
 
-> **Note:** The security scan workflows are configured to work out-of-the-box on fresh repositories with no code. CodeQL will automatically skip if no source files are detected, and all scans handle empty repositories gracefully.
+> **Note:** The security scan workflows work out-of-the-box on fresh repositories with no code. CodeQL automatically skips if no source files are detected.
 
 ## Repository Settings (Probot)
 
 Dev Genesis uses [Probot Settings](https://github.com/apps/settings) to automatically configure your repository with branch protection rules, labels, and other professional-grade settings. This saves you hours of manual configuration and ensures consistency across all repositories created from this template.
 
-### Setup (One-Time, 5 Minutes)
-
-1. **Install the Settings App**
-   - Visit: https://github.com/apps/settings
-   - Click "Install" or "Configure" if you've used it before
-   - Choose your account or organization
-   - Select "All repositories" or choose specific repos
-
-2. **Grant Access to Your Repository**
-   - If you selected specific repos, make sure your new project is included
-   - The app needs permissions to manage repository settings
-
-3. **Automatic Configuration**
-   - The app reads `.github/settings.yml` in your repository
-   - Settings are applied automatically within seconds
-   - You'll see labels created, branch protection enabled, etc.
-
-### Automatically Configured Settings
+### What Gets Configured Automatically
 
 When you install the Probot Settings app, it applies all settings from `.github/settings.yml`:
 
