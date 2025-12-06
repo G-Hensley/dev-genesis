@@ -21,13 +21,15 @@
 # Requirements:
 # - GitHub CLI (gh) installed and authenticated
 # - jq installed for JSON parsing
+#
+# Note: Compatible with Bash 3.2+ (macOS default) - no associative arrays used
 #===============================================================================
 
 # Don't exit on error - we handle errors ourselves
 set +e
 
-# Track labels we've already created/verified this session
-declare -A VERIFIED_LABELS
+# Track labels we've already created/verified this session (space-separated for Bash 3.2 compatibility)
+VERIFIED_LABELS=""
 
 # Colors for output
 RED='\033[0;31m'
@@ -41,6 +43,19 @@ print_info() { echo -e "${BLUE}ℹ${NC} $1"; }
 print_success() { echo -e "${GREEN}✓${NC} $1"; }
 print_warning() { echo -e "${YELLOW}⚠${NC} $1"; }
 print_error() { echo -e "${RED}✗${NC} $1"; }
+
+# Helper function to check if a label has been verified
+is_label_verified() {
+    local label="$1"
+    # Use a unique delimiter to avoid partial matches
+    echo "$VERIFIED_LABELS" | grep -q "|${label}|"
+}
+
+# Helper function to mark a label as verified
+mark_label_verified() {
+    local label="$1"
+    VERIFIED_LABELS="${VERIFIED_LABELS}|${label}|"
+}
 
 # Print usage
 usage() {
@@ -98,7 +113,7 @@ create_label_if_missing() {
     local label_name="$1"
 
     # Skip if we already verified/created this label in this session
-    if [ "${VERIFIED_LABELS[$label_name]}" = "true" ]; then
+    if is_label_verified "$label_name"; then
         return 0
     fi
 
@@ -106,7 +121,7 @@ create_label_if_missing() {
     local existing_labels
     existing_labels=$(gh label list --json name -q ".[].name" 2>/dev/null)
     if echo "$existing_labels" | grep -qxF "$label_name"; then
-        VERIFIED_LABELS[$label_name]="true"
+        mark_label_verified "$label_name"
         return 0
     fi
 
@@ -120,16 +135,16 @@ create_label_if_missing() {
 
     if [ $create_status -eq 0 ]; then
         print_success "Created label: $label_name"
-        VERIFIED_LABELS[$label_name]="true"
+        mark_label_verified "$label_name"
         return 0
     elif echo "$create_output" | grep -qi "already exists"; then
         # Label was created by another process or we missed it
-        VERIFIED_LABELS[$label_name]="true"
+        mark_label_verified "$label_name"
         return 0
     else
         print_warning "Could not create label: $label_name"
         # Still mark as verified to avoid repeated attempts
-        VERIFIED_LABELS[$label_name]="true"
+        mark_label_verified "$label_name"
         return 1
     fi
 }
@@ -216,7 +231,7 @@ create_issue() {
     fi
 
     # Build command arguments as an array (secure - no shell injection)
-    local -a cmd_args=("issue" "create" "--title" "$title")
+    local cmd_args=("issue" "create" "--title" "$title")
 
     if [ -n "$body" ]; then
         cmd_args+=("--body" "$body")
