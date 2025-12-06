@@ -65,7 +65,10 @@ SELECTED_AI=""
 # Helper function to check if an AI is selected
 is_selected() {
     local ai="$1"
-    echo "$SELECTED_AI" | grep -q -w "$ai"
+    case " $SELECTED_AI " in
+        *" $ai "*) return 0 ;;
+        *) return 1 ;;
+    esac
 }
 
 # Helper function to get file path for an AI
@@ -149,10 +152,10 @@ select_ai_assistants() {
     # Parse choices
     for choice in $choices; do
         case $choice in
-            1) SELECTED_AI="$SELECTED_AI claude" ;;
-            2) SELECTED_AI="$SELECTED_AI cursor" ;;
-            3) SELECTED_AI="$SELECTED_AI copilot" ;;
-            4) SELECTED_AI="$SELECTED_AI windsurf" ;;
+            1) SELECTED_AI="${SELECTED_AI:+$SELECTED_AI }claude" ;;
+            2) SELECTED_AI="${SELECTED_AI:+$SELECTED_AI }cursor" ;;
+            3) SELECTED_AI="${SELECTED_AI:+$SELECTED_AI }copilot" ;;
+            4) SELECTED_AI="${SELECTED_AI:+$SELECTED_AI }windsurf" ;;
             5) SELECTED_AI="claude cursor copilot windsurf" ;;
             6) ;; # None selected
             *)
